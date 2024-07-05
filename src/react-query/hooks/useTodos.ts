@@ -17,6 +17,7 @@ const useTodos = () => {
   return useQuery<Todo[], Error>({
     queryKey: ["Todos"],
     queryFn: fetchTodos,
+    staleTime: 10 * 1000,
   });
 };
 
