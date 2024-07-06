@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "./useTodos";
-import axios from "axios";
 import { CACHE_KEY_TODOS } from "../constants";
+import APIClient from "../services/apiClient";
+
+const apiClient = new APIClient<Todo>("/todos");
 
 interface AddTodoContext {
   previousTodos: Todo[];
 }
 const useAddTodo = (onAdd: () => void) => {
   const queryClient = useQueryClient();
+
   return useMutation<Todo, Error, Todo, AddTodoContext>({
-    mutationFn: (todos: Todo) =>
-      axios
-        .post<Todo>("https://jsonplaceholder.typicode.com/todos", todos)
-        .then((res) => res.data),
+    mutationFn: apiClient.post,
 
     onMutate: (newTodo: Todo) => {
       const previousTodos =
