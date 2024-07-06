@@ -15,6 +15,8 @@ const TodoForm = () => {
         savedTodo,
         ...(todos || []),
       ]);
+
+      if (ref.current) ref.current.value = "";
     },
   });
   const ref = useRef<HTMLInputElement>(null);
