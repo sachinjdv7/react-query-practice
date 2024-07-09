@@ -1,8 +1,17 @@
 import { useReducer } from "react";
-import counterReducer from "./Reducer/countReducer";
+
+interface Action {
+  type: "INCREMENT" | "RESET" | "DECREMENT";
+}
+
+const counterReducer = (state: number, action: Action): number => {
+  if (action.type === "INCREMENT") return state + 1;
+  if (action.type === "DECREMENT") return state - 1;
+  if (action.type === "RESET") return 0;
+  return state;
+};
 
 const Counter = () => {
-  // const [value, setValue] = useState(0);
   const [value, dispatch] = useReducer(counterReducer, 0);
 
   return (
